@@ -9,9 +9,24 @@ function computerPlay() {
    return outputArray[random];
 }
 
-// Create a constant in which we store the computerPlay()
+// Create a constant in which we store the computerPlay() output
 const computerSelection = computerPlay();
 
-// Player can write his choice.
-// the choice should be put in lowercase before and stored.
-// write a function with the two selections;
+// Create a variable in which we store the player's choice.
+let playerSelection = "RoCk";
+
+// Create a function to check the correct input and make it case insensitive. Used a switch statement here.
+function playerPlay() {
+    const loweredCase = playerSelection.toLowerCase();
+    
+    switch (true) {
+        case loweredCase != 'rock':
+            console.log("Wrong input, please type rock, paper or scissors");
+            break;
+            
+        default:
+            console.log(loweredCase);
+    }
+}
+
+playerPlay()
