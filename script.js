@@ -9,4 +9,9 @@ function computerPlay() {
    return outputArray[random];
 }
 
-console.log(computerPlay());
+// Create a constant in which we store the computerPlay()
+const computerSelection = computerPlay();
+
+// Player can write his choice.
+// the choice should be put in lowercase before and stored.
+// write a function with the two selections;
