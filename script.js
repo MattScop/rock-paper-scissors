@@ -2,66 +2,72 @@
 
 /* STEP 1:
 Create a function computerPlay that randomly returns rock, paper, scissors.
-Create an array with those values that the function can take to randomly return one of them.*/
+Create an array with those values that the function can take to randomly return one of them.
+*/
 
 // NOTE TO SELF: the computer firstly needs to target the array; then it must randomly return an output.
 
 const arr = ['Rock', 'Paper', 'Scissors'];
-console.log(arr);
 
 function computerPlay() {
     let random = Math.floor(Math.random() * arr.length);
-    console.log(arr[random]);
+    return arr[random];
 }
 
 computerPlay()
 
+/* STEP 2:
+Create a function with two parameters, playerSelection and computerSelection and based on the rules of the game, declare the winner.
+Create the two variables in which the two selections are stored.
+*/
 
+// NOTE TO SELF: first I create the variable computerSelection that stores the output of the computerPlay();
+//               then I create the variable playerSelection with a chosen value (not a random one this time).
+//               (the values must be case INSENSITIVE).
+//               after the variables, I need to create a function that takes both variables and declares
+//               a winner based on the game's rules with a if or switch statement.
 
+const computerSelection = computerPlay();
+const computerSelIns = computerSelection.toLowerCase();
+let playerSelection = "Rock";
+let playerSeleIns = playerSelection.toLowerCase();
 
+function playRound(computerSelIns, playerSeleIns) {
+    switch (true) {
+        case computerSelIns === playerSeleIns:
+            console.log("It's a Tie!");
+            break;
 
-// // Create an array in which we store the 3 different outputs;
-// const outputArray = ["rock", "paper", "scissors"];
+        case computerSelIns === 'rock' && playerSeleIns === 'scissors':
+            console.log("You lost this match, Rock beats Scissors!");
+            break;
+        case computerSelIns === 'rock' && playerSeleIns === 'paper':
+            console.log("Congratulations, you won this match! Paper beats Rock.");
+            break;
 
+        case computerSelIns === 'paper' && playerSeleIns === 'rock':
+            console.log("You lost this match, Paper beats Rock!");
+            break;
+        case computerSelIns === 'paper' && playerSeleIns === 'scissors':
+            console.log("Congratulations, you won this match! Scissors beats Paper.");
+            break;
 
-// // Create a function computerPlay that outputs randomly either rock, paper or scissors from the array.
-// function computerPlay() {
-//    const random = Math.floor(Math.random() * outputArray.length);
-//    return outputArray[random];
-// }
+        case computerSelIns === 'scissors' && playerSeleIns === 'rock':
+            console.log("Congratulations, you won this match! Rock beats Scissors.");
+            break;
+        case computerSelIns === 'scissors' && playerSeleIns === 'paper':
+            console.log("You lost this match, Scissors beats Paper!");
+            break;
 
-// // Create a constant in which we store the computerPlay() output
-// const computerSelection = computerPlay();
+        case playerSeleIns !== 'rock' || playerSeleIns !== 'paper' || playerSeleIns !== 'scissors':
+            console.log("You inserted an incorrect value. Please type either Rock, Paper, or Scissors.");
+            break;
 
-// console.log(computerSelection)
+        default:
+            console.log("Something went terribly wrong!");
+    }
+}
 
-// // Create a variable in which we store the player's choice.
-// let playerSelection = "rocK";
-// let loweredCase = playerSelection.toLowerCase();
-
-// // Create a function to check the correct input and make it case insensitive. Used a switch statement here.
-// function playerPlay() {
-//     if (loweredCase != 'rock' || loweredCase != 'paper' || loweredCase != 'scissors') {
-//         console.log("wrong input, please type rock, paper or scissors");
-//     } else {
-//         return loweredCase;
-//     }
-// }
-
-// console.log(playerPlay());
-
-// // // Create a function that declares the winner based on game's rules
-// // function declareWinner(computerSelection, loweredCase) {
-    
-// //     if (computerSelection === 'rock' && loweredCase === 'scissors') {
-// //         console.log("you lost! rock beats scissors.");
-// //     } else if (computerSelection === 'rock' && loweredCase === 'paper') {
-// //         console.log("you won this match! paper beats rock");
-// //     } else if (computerSelection === 'scissors' && loweredCase === 'rock') {
-// //         console.log("you won this match! rock beats scissors");
-// //     } else {
-// //         console.log('its a tie')
-// //     }
-// // }
-
-// // declareWinner();
+console.log(computerSelection)
+console.log(playerSelection)
+playRound(computerSelIns, playerSeleIns)
