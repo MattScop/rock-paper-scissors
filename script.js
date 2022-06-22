@@ -35,39 +35,31 @@ let playerSeleIns = playerSelection.toLowerCase();
 function playRound(computerSelIns, playerSeleIns) {
     switch (true) {
         case computerSelIns === playerSeleIns:
-            console.log("It's a Tie!");
-            break;
+            return "It's a Tie!";
 
         case computerSelIns === 'rock' && playerSeleIns === 'scissors':
-            console.log("You lost this match, Rock beats Scissors!");
-            break;
+            return "You lost this match, Rock beats Scissors!";
         case computerSelIns === 'rock' && playerSeleIns === 'paper':
-            console.log("Congratulations, you won this match! Paper beats Rock.");
-            break;
+            return "Congratulations, you won this match! Paper beats Rock.";
 
         case computerSelIns === 'paper' && playerSeleIns === 'rock':
-            console.log("You lost this match, Paper beats Rock!");
-            break;
+            return "You lost this match, Paper beats Rock!";
         case computerSelIns === 'paper' && playerSeleIns === 'scissors':
-            console.log("Congratulations, you won this match! Scissors beats Paper.");
-            break;
+            return "Congratulations, you won this match! Scissors beats Paper.";
 
         case computerSelIns === 'scissors' && playerSeleIns === 'rock':
-            console.log("Congratulations, you won this match! Rock beats Scissors.");
-            break;
+            return "Congratulations, you won this match! Rock beats Scissors.";
         case computerSelIns === 'scissors' && playerSeleIns === 'paper':
-            console.log("You lost this match, Scissors beats Paper!");
-            break;
+            return "You lost this match, Scissors beats Paper!";
 
         case playerSeleIns !== 'rock' || playerSeleIns !== 'paper' || playerSeleIns !== 'scissors':
-            console.log("You inserted an incorrect value. Please type either Rock, Paper, or Scissors.");
-            break;
+            return "You inserted an incorrect value. Please type either Rock, Paper, or Scissors.";
 
         default:
-            console.log("Something went terribly wrong!");
+            return "Something went terribly wrong!";
     }
 }
 
 console.log(computerSelection)
 console.log(playerSelection)
-playRound(computerSelIns, playerSeleIns)
+console.log(playRound(computerSelIns, playerSeleIns));
