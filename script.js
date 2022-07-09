@@ -35,42 +35,122 @@ Report the winner
 
 
 
-
 const RPS = ['Rock', 'Paper', 'Scissors'];
+const computerCard = document.querySelector('.ai-card');
+computerCard.classList.add('hideAiCard');
 
+// AI random pick
 function computerPlay() {
-    const randomPlay = Math.floor(Math.random() * RPS.length);
-    const aiCard = document.querySelector('.ai-card');
-
-    // match picture with computer selection
-    if (RPS[randomPlay] === 'Paper') {
-        aiCard.style.content = 'url(img/paper.png)';
-    } else if (RPS[randomPlay] === 'Rock') {
-        aiCard.style.content = 'url(img/rock.png)';
+    // match picture with AI random pick
+    const computerSelection = Math.floor(Math.random() * RPS.length);
+    
+    if (RPS[computerSelection] === 'Paper') {
+        computerCard.style.content = 'url(img/paper.png)';
+    } else if (RPS[computerSelection] === 'Rock') {
+        computerCard.style.content = 'url(img/rock.png)';
     } else {
-        aiCard.style.content = 'url(img/scissors.png)';
+        computerCard.style.content = 'url(img/scissors.png)';
     }
-}
+    return computerSelection
+};
 
-// function playerPlay() {
-//     return prompt("Insert Rock, Paper or Scissors");
-// }
+computerPlay()
+    
+// play round
+const playerCards = document.querySelectorAll('label');
+const declareWinner = document.querySelector('.winner');
+// styling the text
+declareWinner.style.cssText = 'position: absolute; top: 0; width: 100%; text-align: center;';
+const youScore = document.querySelector('.you-score');
+const aiScore = document.querySelector('.ai-score');
+let youNumber = 0;
+let aiNumber = 0;
 
-// const computerSelection = computerPlay();
-// const computerSelIns = computerSelection.toLowerCase();
+playerCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+computerCard.classList.remove('hideAiCard');
+
+        computerPlay()
+        const computerSelection = computerPlay();
+
+        switch (true) {
+            case RPS[computerSelection] === e.target.innerHTML:
+                declareWinner.textContent = "It's a Tie!";                
+            break;
+        
+            case RPS[computerSelection] === 'Rock' && e.target.innerHTML === 'Scissors':
+                declareWinner.textContent = "You lost this match, Rock beats Scissors!";
+                ++aiNumber;
+                aiScore.textContent = `AI: ${aiNumber}`;
+            break;
+
+            case RPS[computerSelection] === 'Rock' && e.target.innerHTML === 'Paper':
+                declareWinner.textContent = "Congratulations, you won this match! Paper beats Rock.";
+                ++youNumber;
+                youScore.textContent = `YOU: ${youNumber}`;
+            break;
+        
+            case RPS[computerSelection] === 'Paper' && e.target.innerHTML === 'Rock':
+                declareWinner.textContent = "You lost this match, Paper beats Rock!";
+                ++aiNumber;
+                aiScore.textContent = `AI: ${aiNumber}`;
+            break;
+
+            case RPS[computerSelection] === 'Paper' && e.target.innerHTML === 'Scissors':
+                declareWinner.textContent = "Congratulations, you won this match! Scissors beats Paper.";
+                ++youNumber;
+                youScore.textContent = `YOU: ${youNumber}`;
+            break;
+        
+            case RPS[computerSelection] === 'Scissors' && e.target.innerHTML === 'Rock':
+                declareWinner.textContent = "Congratulations, you won this match! Rock beats Scissors.";
+                ++youNumber;
+                youScore.textContent = `YOU: ${youNumber}`;
+            break;
+
+            case RPS[computerSelection] === 'Scissors' && e.target.innerHTML === 'Paper':
+                declareWinner.textContent = "You lost this match, Scissors beats Paper!";
+                ++aiNumber;
+                aiScore.textContent = `AI: ${aiNumber}`;
+            break;
+        
+            default:
+                declareWinner.textContent = "Something went terribly wrong!";
+        }
+        theWinnerIs()
+    })
+})
+
+
+function theWinnerIs() {
+    const gameWinner = document.querySelector('.gameWinner');
+
+    if (aiNumber === 5) {
+        gameWinner.textContent = "The Winner is The Computer";
+        if (confirm('Rematch?')) {
+            youNumber = 0;
+            aiNumber = 0;
+            youScore.textContent = `YOU: ${youNumber}`;
+            aiScore.textContent = `AI: ${aiNumber}`;
+            gameWinner.textContent = "";
+            declareWinner.textContent = "";
+        }
+    } else if (youNumber === 5) {
+        gameWinner.textContent = "You Won!";
+        if (confirm('Rematch?')) {
+            youNumber = 0;
+            aiNumber = 0;
+            youScore.textContent = `YOU: ${youNumber}`;
+            aiScore.textContent = `AI: ${aiNumber}`;
+            gameWinner.textContent = "";
+            declareWinner.textContent = "";
+        }
+    }
+} 
 
 // const arrComputer = [];
 // const arrPlayer = []; 
 
-// function declareWinner(arrComputer, arrPlayer) {
-//     if (arrComputer.length > arrPlayer.length) {
-//         console.log("The Winner is The Computer");
-//     } else if (arrComputer.length < arrPlayer.length) {
-//         console.log("You Won!");
-//     } else {
-//         console.log("No Winner here, Rematch!");
-//     }
-// } 
 
 // function game() {
 //     let loopNum = 5;

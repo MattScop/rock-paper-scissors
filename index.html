@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Rock Paper Scissors Game!</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -13,22 +13,26 @@
 
         <div class="score">
             <h1>SCORE</h1>
-            <h2>YOU:</h2>
-            <h2>AI:</h2>
+            <h2 class="you-score">YOU: 0</h2>
+            <h2 class="ai-score">AI: 0</h2>
         </div>
+
+        <h1 class="winner"></h1>
+
+        <h1 class="gameWinner"></h1>
 
         <div class="table-game"></div>
 
         <div class="ai-card"></div>
 
         <div class="player-cards">
-            <label for="card-rock"></label>
+            <label for="card-rock">Rock</label>
             <input type="checkbox" class="card-rock">
 
-            <label for="card-paper"></label>
+            <label for="card-paper">Paper</label>
             <input type="checkbox" class="card-paper">
 
-            <label for="card-scissors"></label>
+            <label for="card-scissors">Scissors</label>
             <input type="checkbox" class="card-scissors">
         </div>
 

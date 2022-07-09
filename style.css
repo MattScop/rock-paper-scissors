@@ -93,3 +93,16 @@ label[for="card-scissors"] {
     transition: all .25s ease;
     content: 'url('img/paper.png')';
 }
+
+.gameWinner {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    text-align: center;
+    color: green;
+    text-decoration: underline;
+}
+
+.hideAiCard {
+    filter: brightness(0);
+}
