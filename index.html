@@ -3,28 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors Game!</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 
 <body>
+    <div id="overlay-round">
+        <div class="modal">
+            <h1 class="round-winner"></h1>
+            <h1 class="round">Go to Round</h1>
+        </div>
+    </div>
+
+    <div id="overlay-game">
+        <div class="modal">
+            <h1 class="game-winner"></h1>
+            <h1 class="game">Click to Rematch</h1>
+        </div>
+    </div>
+
+
     <div class="container">
 
         <div class="score">
             <h1>SCORE</h1>
-            <h2 class="you-score">YOU: 0</h2>
-            <h2 class="ai-score">AI: 0</h2>
+            <h2 class="you-score-point">YOU: 0</h2>
+            <h2 class="ai-score-point">AI: 0</h2>
         </div>
 
-        <h1 class="winner"></h1>
-
-        <h1 class="gameWinner"></h1>
-
-        <div class="table-game"></div>
+        <div class="table"></div>
 
         <div class="ai-card"></div>
-
         <div class="player-cards">
             <label for="card-rock">Rock</label>
             <input type="checkbox" class="card-rock">
@@ -37,6 +47,9 @@
         </div>
 
     </div>
+
+
+    <script src="script.js"></script>
 </body>
 
 </html>

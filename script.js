@@ -58,60 +58,81 @@ computerPlay()
     
 // play round
 const playerCards = document.querySelectorAll('label');
-const declareWinner = document.querySelector('.winner');
-// styling the text
-declareWinner.style.cssText = 'position: absolute; top: 0; width: 100%; text-align: center;';
-const youScore = document.querySelector('.you-score');
-const aiScore = document.querySelector('.ai-score');
+const declareWinner = document.querySelector('.round-winner');
+const overlay = document.getElementById('overlay-round');
+const overlayGame = document.getElementById('overlay-game');
+const youScore = document.querySelector('.you-score-point');
+const aiScore = document.querySelector('.ai-score-point');
+const roundText = document.querySelector('.round');
 let youNumber = 0;
 let aiNumber = 0;
+let roundNumber = 1;
 
 playerCards.forEach(card => {
     card.addEventListener('click', (e) => {
-computerCard.classList.remove('hideAiCard');
+        const playerCard = e.target;
+
+        playerCard.classList.add('selection');
+        computerCard.classList.remove('hideAiCard');
 
         computerPlay()
-        const computerSelection = computerPlay();
+        const computerSelectionRound = computerPlay();
+
+        overlay.classList.add('show');
 
         switch (true) {
-            case RPS[computerSelection] === e.target.innerHTML:
-                declareWinner.textContent = "It's a Tie!";                
+            case RPS[computerSelectionRound] === e.target.innerHTML:
+                declareWinner.textContent = "It's a Tie!";    
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`;                
             break;
         
-            case RPS[computerSelection] === 'Rock' && e.target.innerHTML === 'Scissors':
+            case RPS[computerSelectionRound] === 'Rock' && e.target.innerHTML === 'Scissors':
                 declareWinner.textContent = "You lost this match, Rock beats Scissors!";
                 ++aiNumber;
                 aiScore.textContent = `AI: ${aiNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
 
-            case RPS[computerSelection] === 'Rock' && e.target.innerHTML === 'Paper':
+            case RPS[computerSelectionRound] === 'Rock' && e.target.innerHTML === 'Paper':
                 declareWinner.textContent = "Congratulations, you won this match! Paper beats Rock.";
                 ++youNumber;
                 youScore.textContent = `YOU: ${youNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
         
-            case RPS[computerSelection] === 'Paper' && e.target.innerHTML === 'Rock':
+            case RPS[computerSelectionRound] === 'Paper' && e.target.innerHTML === 'Rock':
                 declareWinner.textContent = "You lost this match, Paper beats Rock!";
                 ++aiNumber;
                 aiScore.textContent = `AI: ${aiNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
 
-            case RPS[computerSelection] === 'Paper' && e.target.innerHTML === 'Scissors':
+            case RPS[computerSelectionRound] === 'Paper' && e.target.innerHTML === 'Scissors':
                 declareWinner.textContent = "Congratulations, you won this match! Scissors beats Paper.";
                 ++youNumber;
                 youScore.textContent = `YOU: ${youNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
         
-            case RPS[computerSelection] === 'Scissors' && e.target.innerHTML === 'Rock':
+            case RPS[computerSelectionRound] === 'Scissors' && e.target.innerHTML === 'Rock':
                 declareWinner.textContent = "Congratulations, you won this match! Rock beats Scissors.";
                 ++youNumber;
                 youScore.textContent = `YOU: ${youNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
 
-            case RPS[computerSelection] === 'Scissors' && e.target.innerHTML === 'Paper':
+            case RPS[computerSelectionRound] === 'Scissors' && e.target.innerHTML === 'Paper':
                 declareWinner.textContent = "You lost this match, Scissors beats Paper!";
                 ++aiNumber;
                 aiScore.textContent = `AI: ${aiNumber}`;
+                ++roundNumber
+                roundText.textContent = `Go to Round ${roundNumber}`; 
             break;
         
             default:
@@ -121,85 +142,43 @@ computerCard.classList.remove('hideAiCard');
     })
 })
 
-
+const gameWinner = document.querySelector('.game-winner');
 function theWinnerIs() {
-    const gameWinner = document.querySelector('.gameWinner');
 
     if (aiNumber === 5) {
         gameWinner.textContent = "The Winner is The Computer";
-        if (confirm('Rematch?')) {
-            youNumber = 0;
-            aiNumber = 0;
-            youScore.textContent = `YOU: ${youNumber}`;
-            aiScore.textContent = `AI: ${aiNumber}`;
-            gameWinner.textContent = "";
-            declareWinner.textContent = "";
-        }
+        overlayGame.classList.add('showRematch')
     } else if (youNumber === 5) {
         gameWinner.textContent = "You Won!";
-        if (confirm('Rematch?')) {
-            youNumber = 0;
-            aiNumber = 0;
-            youScore.textContent = `YOU: ${youNumber}`;
-            aiScore.textContent = `AI: ${aiNumber}`;
-            gameWinner.textContent = "";
-            declareWinner.textContent = "";
-        }
+        overlayGame.classList.add('showRematch')
     }
 } 
 
-// const arrComputer = [];
-// const arrPlayer = []; 
+const gameRematch = document.querySelector('.game');
+gameRematch.addEventListener('click', rematch);
 
+function rematch() {
+    youNumber = 0;
+    aiNumber = 0;
+    roundNumber = 1;
+    youScore.textContent = `YOU: ${youNumber}`;
+    aiScore.textContent = `AI: ${aiNumber}`;
+    gameWinner.textContent = "";
+    declareWinner.textContent = "";
+    overlayGame.classList.remove('showRematch');
+    roundText.textContent = `Go to Round ${roundNumber}`; 
+    computerPlay()
+    nextRound()
+}
 
-// function game() {
-//     let loopNum = 5;
-//     for (let i = 1; i <= loopNum; i++) {
-//         computerPlay();
-//         let playerSelection = playerPlay();
-//         let playerSeleIns = playerSelection.toLowerCase();
-//         const playResult = playRound(computerSelIns, playerSeleIns);
-          
+overlay.addEventListener('click', nextRound);
 
-//         function playRound(computerSelIns, playerSeleIns) {
-//             switch (true) {
-//                 case computerSelIns === playerSeleIns:
-//                     return "It's a Tie!";
-        
-//                 case computerSelIns === 'rock' && playerSeleIns === 'scissors':
-//                     return "You lost this match, Rock beats Scissors!";
-//                 case computerSelIns === 'rock' && playerSeleIns === 'paper':
-//                     return "Congratulations, you won this match! Paper beats Rock.";
-        
-//                 case computerSelIns === 'paper' && playerSeleIns === 'rock':
-//                     return "You lost this match, Paper beats Rock!";
-//                 case computerSelIns === 'paper' && playerSeleIns === 'scissors':
-//                     return "Congratulations, you won this match! Scissors beats Paper.";
-        
-//                 case computerSelIns === 'scissors' && playerSeleIns === 'rock':
-//                     return "Congratulations, you won this match! Rock beats Scissors.";
-//                 case computerSelIns === 'scissors' && playerSeleIns === 'paper':
-//                     return "You lost this match, Scissors beats Paper!";
-        
-//                 default:
-//                     return "Something went terribly wrong!";
-//             }
-//         }
-//         console.log(`Match:${i}: ${playerSeleIns}`);
-//         console.log(`Match:${i}: ${computerSelIns}`);
-//         console.log(playRound(computerSelIns, playerSeleIns));
-//         if (playResult.includes('Congratulations')) {
-//             arrPlayer.push(i)
-//         } else if (playResult.includes('You lost')) {
-//             arrComputer.push(i)
-//         } else if (playResult.includes("It's a Tie")) {
-//             arrPlayer.push(i);
-//             arrComputer.push(i);
-//         } else {
-//             loopNum += 1;
-//         }
-//     }
-//     declareWinner(arrComputer, arrPlayer);
-// }
-    
-// game();
+function nextRound() {
+    overlay.classList.remove('show');
+    playerCards.forEach((card) => {
+        if (card.classList.contains = 'selection') {
+            card.classList.remove('selection');
+        }
+    })
+    computerCard.classList.add('hideAiCard');
+}
