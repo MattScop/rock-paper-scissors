@@ -95,7 +95,7 @@ label[for="card-scissors"] {
     }
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 990px) {
     body {
       font-size: 1.2rem;
     }
