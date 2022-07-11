@@ -107,6 +107,9 @@ label[for="card-scissors"] {
         left: 43%;
         width: 16%;
     }
+    .player-cards {
+        margin: 50px auto;
+    }
     label {
         width: 20%;
     }
